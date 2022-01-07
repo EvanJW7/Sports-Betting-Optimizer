@@ -89,6 +89,7 @@ def game_projection(spread, total, percent_of_bets, favteam, underdog):
     Quarter = ['0','15','Halftime','45', '60']
     Points1 = favteam_points
     Points2 = underdog_points
+    
     colors = {
         'cardinals': 'red',
         'falcons': 'tab:red',
