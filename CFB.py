@@ -75,6 +75,7 @@ def game_projection(spread, percent_of_bets, total, favteam, underdog):
     print(f"\nHalftime score: {f2} to {u2}")
     print(f"\nFinal score: {f4} to {u4}")
     return data, plt.plot()
+
 a = float(input("Spread: "))
 b = float(input(f"Percent of bets on the favorite: "))
 c = float(input("Over/Under: "))
