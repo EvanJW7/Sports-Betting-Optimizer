@@ -78,10 +78,8 @@ def game_projection(spread, total, percent_of_bets, favteam, underdog):
     rows = favteam.title(), underdog.title()
     data = pd.DataFrame(boxscore, rows)
     
-    
     import matplotlib.pyplot as plt
    
-
     Quarter = ['0','12','Halftime','36', '48']
     Points1 = favteam_points
     Points2 = underdog_points
