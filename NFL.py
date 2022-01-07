@@ -1,10 +1,10 @@
 import numpy as np
 import pandas as pd
-def game_projection(spread0, total, percent_of_bets, favteam, underdog):
-    if spread0<0:
-        spread = spread0 *-1
+def game_projection(spread, total, percent_of_bets, favteam, underdog):
+    if spread<0:
+        spread = spread *-1
     else:
-        spread = spread0
+        pass
     betsfinal = (percent_of_bets)/100
     optimizer = (spread + ((.5 - betsfinal)*30))
     ospread = float(format(optimizer, ".2"))
@@ -32,26 +32,24 @@ def game_projection(spread0, total, percent_of_bets, favteam, underdog):
         else:
             print(f"\nUpset Alert! The {underdog.title()} are projected to win by about {ospread_final} points")
 
-    print(f"\nOriginal Spread: {spread0}")
+    print(f"\nOriginal Spread: {spread}")
     print(f"\bOptimized Spread: {format_ospread}\n")
     #BET SUGGESTION
     print("Bet Suggestion: ")
-    bet1 = spread0
+    bet1 = spread
     bet2 = format_ospread
     bet = bet1 - bet2
-    if bet <=-5 and format_ospread >=4:
+    if bet <=-4 and format_ospread >0:
         print(f"Bet the moneline on the {underdog.title()}")
-    if bet <=-5 and format_ospread <4:
+    elif bet <=-4 and format_ospread <0:
         print(f"Bet the spread on the {underdog.title()}")
-    if bet <=-5 and format_ospread <0:
+    elif -4<bet<=-2:
         print(f"Bet the spread on the {underdog.title()}")
-    if -5<bet<-3:
-        print(f"Bet the spread on the {underdog.title()}")
-    if -3<=bet<=3:
+    elif -2<bet<2:
         print("Do not bet on this game, there isn't enough edge")
-    if 3<bet<5:
+    elif 2<=bet<4:
         print(f"Bet the moneline on the {favteam.title()}")
-    if bet>=5:
+    elif bet>=4:
         print(f"Bet the spread on the {favteam.title()}")
     start = 0
     f1 = x/4  
@@ -91,154 +89,47 @@ def game_projection(spread0, total, percent_of_bets, favteam, underdog):
     Quarter = ['0','15','Halftime','45', '60']
     Points1 = favteam_points
     Points2 = underdog_points
-    def getcolor(favteam):
-        if favteam == 'cardinals':
-            colors = 'red'
-        if favteam == 'falcons':
-            colors = 'tab:red'
-        if favteam == 'panthers':
-            colors = 'tab:cyan'
-        if favteam == 'bears':
-            colors = 'midnightblue'
-        if favteam == 'cowboys':
-            colors = 'mediumblue'
-        if favteam == 'lions':
-            colors = 'dodgerblue'
-        if favteam == 'packers':
-            colors = 'gold'
-        if favteam == 'rams':
-            colors = 'royalblue'
-        if favteam == 'vikings':
-            colors = 'darkviolet'
-        if favteam == 'saints':
-            colors = 'goldenrod'
-        if favteam == 'giants':
-            colors = 'blue'
-        if favteam == 'eagles':
-            colors = 'mediumseagreen'
-        if favteam == '49ers':
-            colors = 'brown'
-        if favteam == 'seahawks':
-            colors = 'teal'
-        if favteam == 'bucs':
-            colors = 'maroon'
-        if favteam == 'buccaneers':
-            colors = 'maroon'
-        if favteam == 'football team':
-            colors = 'firebrick'
-        if favteam == 'washington':
-            colors = 'firebrick'
-        if favteam == 'ravens':
-            colors = 'indigo'
-        if favteam == 'bills':
-            colors = 'royalblue'
-        if favteam == 'bengals':
-            colors = 'darkorange'
-        if favteam == 'browns':
-            colors = 'tab:brown'
-        if favteam == 'broncos':
-            colors = 'tab:orange'
-        if favteam == 'texans':
-            colors = 'navy'
-        if favteam == 'colts':
-            colors = 'deepskyblue'
-        if favteam == 'jags':
-            colors = 'limegreen'
-        if favteam == 'jaguars':
-            colors = 'limegreen'
-        if favteam == 'chiefs':
-            colors = 'orangered'
-        if favteam == 'raiders':
-            colors = 'slategray'
-        if favteam == 'chargers':
-            colors = 'lightskyblue'
-        if favteam == 'dolphins':
-            colors = 'cyan'
-        if favteam == 'patriots':
-            colors = 'midnightblue'
-        if favteam == 'jets':
-            colors = 'green'
-        if favteam == 'steelers':
-            colors = 'black'
-        if favteam == 'titans':
-            colors = 'mediumturquoise'
-        return colors
+    colors = {
+        'cardinals': 'red',
+        'falcons': 'tab:red',
+        'panthers': 'tab:cyan',
+        'bears': 'midnightblue',
+        'cowboys': 'mediumblue',
+        'lions': 'dodgerblue',
+        'packers': 'gold',
+        'rams': 'royalblue',
+        'vikings': 'darkviolet',
+        'saints': 'goldenrod',
+        'giants': 'blue',
+        'eagles': 'mediumseagreen',
+        '49ers': 'brown',
+        'seahawks': 'teal',
+        'bucs': 'maroon',
+        'buccaneers': 'maroon',
+        'football team': 'firebrick',
+        'washington': 'firebrick', 
+        'ravens': 'indigo',
+        'bills': 'royalblue',
+        'bengals': 'darkorange',
+        'browns': 'tab:brown',
+        'broncos': 'tab:orange',
+        'texans': 'navy',
+        'colts': 'deepskyblue',
+        'jags': 'limegreen',
+        'jaguars': 'limegreen',
+        'chiefs': 'orangered',
+        'raiders': 'slategray',
+        'chargers': 'lightskyblue',
+        'dolphins': 'cyan',
+        'patriots': 'midnightblue',
+        'pats': 'midnightblue',
+        'jets': 'green',
+        'steelers': 'black',
+        'titans': 'mediumturquoise'
+    }
     
-    def getcolor(underdog):
-        if underdog == 'cardinals':
-            coloru = 'red'
-        if underdog == 'falcons':
-            coloru = 'tab:red'
-        if underdog == 'panthers':
-            coloru = 'tab:cyan'
-        if underdog == 'bears':
-            coloru = 'midnightblue'
-        if underdog == 'cowboys':
-            coloru = 'mediumblue'
-        if underdog == 'lions':
-            coloru = 'dodgerblue'
-        if underdog == 'packers':
-            coloru = 'gold'
-        if underdog == 'rams':
-            coloru = 'royalblue'
-        if underdog == 'vikings':
-            coloru = 'darkviolet'
-        if underdog == 'saints':
-            coloru = 'goldenrod'
-        if underdog == 'giants':
-            coloru = 'blue'
-        if underdog == 'eagles':
-            coloru = 'mediumseagreen'
-        if underdog == '49ers':
-            coloru = 'brown'
-        if underdog == 'seahawks':
-            coloru = 'teal'
-        if underdog == 'bucs':
-            coloru = 'maroon'
-        if underdog == 'buccaneers':
-            coloru = 'maroon'
-        if underdog == 'football team':
-            coloru = 'firebrick'
-        if underdog == 'washington':
-            coloru = 'firebrick'
-        if underdog == 'ravens':
-            coloru = 'indigo'
-        if underdog == 'bills':
-            coloru = 'royalblue'
-        if underdog == 'bengals':
-            coloru = 'darkorange'
-        if underdog == 'browns':
-            coloru = 'tab:brown'
-        if underdog == 'broncos':
-            coloru = 'tab:orange'
-        if underdog == 'texans':
-            coloru = 'navy'
-        if underdog == 'colts':
-            coloru = 'deepskyblue'
-        if underdog == 'jags':
-            coloru = 'limegreen'
-        if underdog == 'jaguars':
-            coloru = 'limegreen'
-        if underdog == 'chiefs':
-            coloru = 'orangered'
-        if underdog == 'raiders':
-            coloru = 'slategray'
-        if underdog == 'chargers':
-            coloru = 'lightskyblue'
-        if underdog == 'dolphins':
-            coloru = 'cyan'
-        if underdog == 'patriots':
-            coloru = 'midnightblue'
-        if underdog == 'jets':
-            coloru = 'green'
-        if underdog == 'steelers':
-            coloru = 'black'
-        if underdog == 'titans':
-            coloru = 'mediumturquoise'
-        return coloru
-    
-    plt.plot(Quarter, Points1, label = favteam.title(), color = getcolor(favteam), lw = 1, marker = '*', ms = 10)
-    plt.plot(Quarter, Points2, label = underdog.title(), color = getcolor(underdog), lw = 1, marker = '*', ms = 10)
+    plt.plot(Quarter, Points1, label = favteam.title(), color = colors[favteam], lw = 1, marker = '.', ms = 10)
+    plt.plot(Quarter, Points2, label = underdog.title(), color = colors[underdog], lw = 1, marker = '.', ms = 10)
     plt.title('Game Spread Projection')
     plt.xlabel('Quarter (in minutes)')
     plt.ylabel('Expected Points')
@@ -247,6 +138,7 @@ def game_projection(spread0, total, percent_of_bets, favteam, underdog):
     plt.show()
     print("\nBox Score Projection:")
     print(data)
+    
 a = float(input("Spread: "))
 b = float(input("Over/Under: "))
 c = float(input(f"Percent of bets on the favorite: "))
@@ -256,3 +148,6 @@ e = input("Underdog: ")
 e = e.lower()
 
 game_projection(a, b, c, d, e)
+
+
+
